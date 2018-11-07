@@ -3,7 +3,7 @@ import remeras.*
 
 class Comercio {
  	var property sucursales = []
- 	var property pedidosRealizados = []
+ 	var property pedidosRealizados = [] // me equivoque, la sucursal tiene pedidos
  	
  	method nuevoPedido(pedido){ pedidosRealizados.add(pedido) }
  	method totalFacturado() = pedidosRealizados.sum { pedido => pedido.precio() }

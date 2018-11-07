@@ -4,9 +4,9 @@ class RemeraLisa {
 	const property color
 	
 	method costo(){
-		var costoTotal = self.costoTalle() * 10 / 100; // costo de cualquier color diferentes a los basicos
-		if (colores.coloresBasicos().contains(color)) {
-			costoTotal = self.costoTalle()
+		var costoTotal = self.costoTalle(); // costo de cualquier color diferentes a los basicos
+		if (not colores.coloresBasicos().contains(color)) {
+			costoTotal = costoTotal + self.costoTalle() * 10 / 100;
 		}
 		return costoTotal
 	 }
@@ -43,7 +43,7 @@ class RemeraBordada inherits RemeraLisa {
 class RemeraSublimada inherits RemeraLisa{
 	const alto
 	const ancho
-	const property derechoDeAutor = false
+	const derechoDeAutor = false
 	const costoDerechoAutor = 0
 	const property empresaDerechoAutor
 	

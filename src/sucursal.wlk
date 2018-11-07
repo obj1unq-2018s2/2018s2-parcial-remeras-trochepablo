@@ -2,7 +2,7 @@ import pedidos.*
 
 class Sucursal {
 	var property pedidos = []
-	const cantidadMinDesc
+	const property cantidadMinDesc = 0
 	
 	method totalFacturado() = pedidos.sum{ pedido => pedido.precio() } 
 	method vendioTodosTalles(talles) = 

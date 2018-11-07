@@ -1,14 +1,13 @@
 class Pedido {
 	const modeloRemera
 	const cantidad
-	var porcentajeDesc
+	var porcentajeDesc = 0
 	const sucursal 
 	const empresasConvenio = []
 	
 	method precio() {
-		
 		var precio = modeloRemera.costo() * cantidad
-		if (sucursal.cantidadMinDes() <= cantidad) {
+		if (sucursal.cantidadMinDesc() <= cantidad) {
 			precio = precio - (precio * porcentajeDesc / 100)
 		}
 		return precio

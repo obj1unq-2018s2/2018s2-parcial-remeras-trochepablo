@@ -1,6 +1,62 @@
+import remeras.*
+import empresa.*
+import pedidos.*
+import sucursal.*
+import comercio.*
 
-test "testX" {
-
-	assert.that(true)
-
+describe "TEST"{
+	var empresa1 = new Empresa()
+	const remeraLisa = new RemeraLisa(talle = 38, color = "gris")
+	const remeraLisaColorNoBasico = new RemeraLisa(talle = 38, color = "magenta")
+	const remeraBordada = new RemeraBordada(talle = 41, color = "gris", cantidadColores = 4)
+	const remeraSublimada = new RemeraSublimada(talle = 48, color = "gris", alto = 10, ancho = 20, derechoDeAutor = true, empresaDerechoAutor = empresa1, costoDerechoAutor = 100)
+	
+	const sucursalFlores = new Sucursal(cantidadMinDesc = 4)
+	const sucursalAve = new Sucursal(cantidadMinDesc = 7)
+	
+	const pedido1 = new Pedido(modeloRemera = remeraLisa, cantidad = 5, sucursal = sucursalFlores, porcentajeDesc = 2)
+	const pedido2 = new Pedido(modeloRemera = remeraBordada, cantidad = 2, sucursal = sucursalFlores, porcentajeDesc = 2)
+	
+	const pedido3 = new Pedido(modeloRemera = remeraLisa, cantidad = 5, sucursal = sucursalAve, porcentajeDesc = 5)
+	const pedido4 = new Pedido(modeloRemera = remeraBordada, cantidad = 2, sucursal = sucursalAve, porcentajeDesc = 5)
+	
+	const comercio = new Comercio()
+	fixture{
+		sucursalFlores.pedidos().add(pedido1)
+		sucursalFlores.pedidos().add(pedido2)
+		
+		sucursalAve.pedidos().add(pedido3)
+		sucursalAve.pedidos().add(pedido4)
+		
+		comercio.sucursales().add(sucursalFlores)
+		comercio.sucursales().add(sucursalAve)
+		
+		comercio.pedidosRealizados().add(pedido1)
+		comercio.pedidosRealizados().add(pedido2)
+		
+	}
+	
+	test "test remeras" {
+		assert.equals(80, remeraLisa.costo())
+		assert.equals(88, remeraLisaColorNoBasico.costo())
+		assert.equals(140, remeraBordada.costo())
+		assert.equals(300, remeraSublimada.costo())
+	}
+	
+	test "pedido"{
+		assert.equals(392, pedido1.precio())
+	}
+	
+	test "facturacionComercio"{
+		assert.equals(672, comercio.totalFacturado())
+	}
+	
+	test "sucursal que mas facturo"{
+		assert.equals(sucursalAve, comercio.sucursalMaxFacturacion())
+	}
+	
+	test "cantidad de remeras pedidas color:"{
+		assert.equals(2, comercio.cantidadPedidosRemerasColor("gris"))
+	}
+	
 }
